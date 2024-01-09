@@ -21,7 +21,7 @@ public class PhysicalObject2D extends ObjectClass {
         this.Position = new Vector2(0,0);
         this.Size = new Vector2(50,50);
         this.Rotation = new EulerRotation(0);
-        this.Texture = new File(""); // texture path here
+        this.Texture = new File("/Users/27ayden.dillon/Desktop/Programs/TD_ENGINE/td_engine/src/main/resources/Images/Test.png"); // texture path here
 
         // Physics
 
@@ -71,6 +71,10 @@ public class PhysicalObject2D extends ObjectClass {
 
     public void SetRotation(float Value) {
         this.Rotation = new EulerRotation(Value);
+    };
+
+    public void SetTexture(File Value) {
+        this.Texture = Value;
     };
 
     public void SetZOrder(int Value) {

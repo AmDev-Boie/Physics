@@ -31,8 +31,13 @@ public class ProgramLoop {
 
     // delta time stuff
 
-    public static double fpsCap = 144;
-    public static double upsCap = 80;
+    public static double fpsCap = 60;
+    public static double upsCap = 40;
+
+    // Camera Variables
+
+    public static Vector2 CamPos = new Vector2(0, 0);
+    public static int CamZoom = 1;
 
     // values i might want for actual progress
 
@@ -40,7 +45,7 @@ public class ProgramLoop {
     private static boolean frameReady = true;
     private static boolean running = true;
 
-    public static void run() {
+        public static void run2D() {
 
             long initialTime = System.nanoTime();
             final double timeU = 1000000000 / upsCap;
@@ -65,7 +70,7 @@ public class ProgramLoop {
                 if (deltaF >= 1) {
                     
                     try {
-                    BufferedImage BImage = Drawing2D.drawFrame(new Vector2(0,0), 1, WINDOW_WIDTH, WINDOW_HEIGHT);
+                    BufferedImage BImage = Drawing2D.drawFrame(CamPos, CamZoom, WINDOW_WIDTH, WINDOW_HEIGHT);
                     ImageLabel.setIcon(new ImageIcon(BImage));
                     } catch (IOException e) {
                         e.printStackTrace();

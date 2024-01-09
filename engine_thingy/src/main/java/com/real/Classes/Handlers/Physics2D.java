@@ -9,7 +9,7 @@ public class Physics2D {
 
     private static Vector2 gravitationalConstant = new Vector2(0, (float) (-9.81));
     private static float drag = 50;
-    private static float terminalVelocity = -6;
+    private static float terminalVelocity = -20;
 
     // more pre-defines because yet again im incompetent.
 
@@ -29,7 +29,7 @@ public class Physics2D {
 
                 // calculate velocity vector2d
 
-                float velocityX = (float) (velocity.GetX() + ((gravitationalConstant.GetX()/drag)/deltatime));
+                float velocityX = (float) (velocity.GetX() + ((gravitationalConstant.GetX()/drag)*deltatime));
 
                 if (Math.abs(particle.GetVelocity().GetX()) <= Math.abs(terminalVelocity)) {
                     particle.SetVelocity(new Vector2(velocityX, velocity.GetY()));
@@ -45,7 +45,7 @@ public class Physics2D {
                     particle.SetVelocity(new Vector2(tVs, velocity.GetY()));
                 }
 
-                float velocityY = (float) (velocity.GetY() + ((gravitationalConstant.GetY()/drag)/deltatime));
+                float velocityY = (float) (velocity.GetY() + ((gravitationalConstant.GetY()/drag)*deltatime));
 
                 if (Math.abs(particle.GetVelocity().GetY()) <= Math.abs(terminalVelocity)) {
                     particle.SetVelocity(new Vector2(velocity.GetX(), velocityY));

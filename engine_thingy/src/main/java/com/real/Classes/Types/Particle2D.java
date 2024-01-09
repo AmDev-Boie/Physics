@@ -13,7 +13,6 @@ public class Particle2D extends ObjectClass {
     protected Vector2 velocity;
     protected float mass;
 
-
     public Particle2D() {
         super("Particle");
 
