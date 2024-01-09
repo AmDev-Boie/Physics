@@ -22,7 +22,7 @@ public class Main {
 
     // Objects
 
-    private static Particle2D Particle = new Particle2D();
+    private static PhysicalObject2D Particle = new PhysicalObject2D();
 
     public static void main(String[] args) {
 

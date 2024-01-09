@@ -11,7 +11,6 @@ public class Particle2D extends ObjectClass {
     // Physics
 
     protected Vector2 velocity;
-    protected Vector2 Acceleration;
     protected float mass;
 
 
@@ -24,8 +23,7 @@ public class Particle2D extends ObjectClass {
         // Physics
 
         this.velocity = new Vector2(0, 0);
-        this.mass = (float) 0.5;
-        this.Acceleration = new Vector2(0, 0);
+        this.mass = (float) 1;
     }
 
     // getter methods
@@ -50,10 +48,6 @@ public class Particle2D extends ObjectClass {
         return this.mass;
     };
 
-    public Vector2 GetAcceleration() {
-        return this.Acceleration;
-    };
-
     // setter methods
 
     public void SetPosition(Vector2 Value) {
@@ -74,10 +68,6 @@ public class Particle2D extends ObjectClass {
 
     public void SetMass(float Value) {
         this.mass = Value;
-    };
-
-    public void SetAcceleration(Vector2 Value) {
-        this.Acceleration = Value;
     };
 }
 

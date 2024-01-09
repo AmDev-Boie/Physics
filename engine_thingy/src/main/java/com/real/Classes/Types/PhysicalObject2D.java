@@ -10,13 +10,23 @@ public class PhysicalObject2D extends ObjectClass {
     protected File Texture;
     protected int ZOrder;
 
+    // Physics
+
+    protected Vector2 velocity;
+    protected float mass;
+
     public PhysicalObject2D() {
         super("Object");
 
         this.Position = new Vector2(0,0);
         this.Size = new Vector2(50,50);
         this.Rotation = new EulerRotation(0);
-        this.Texture = new File("/Users/27ayden.dillon/Desktop/Programs/TD_ENGINE/td_engine/src/main/resources/Images/Test.png");
+        this.Texture = new File(""); // texture path here
+
+        // Physics
+
+        this.velocity = new Vector2(0, 0);
+        this.mass = (float) 1;
     }
 
     // getter methods
@@ -41,6 +51,14 @@ public class PhysicalObject2D extends ObjectClass {
         return this.ZOrder;
     };
 
+    public Vector2 GetVelocity() {
+        return this.velocity;
+    };
+
+    public float GetMass() {
+        return this.mass;
+    };
+
     // setter methods
 
     public void SetPosition(Vector2 Value) {
@@ -57,6 +75,14 @@ public class PhysicalObject2D extends ObjectClass {
 
     public void SetZOrder(int Value) {
         this.ZOrder = Value;
+    };
+
+    public void SetVelocity(Vector2 Value) {
+        this.velocity = Value;
+    };
+
+    public void SetMass(float Value) {
+        this.mass = Value;
     };
 }
 
