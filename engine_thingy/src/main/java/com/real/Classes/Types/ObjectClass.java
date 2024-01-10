@@ -22,10 +22,12 @@ public class ObjectClass {
     
     protected String Name;
     protected int ID;
+    protected boolean anchored;
 
     public ObjectClass(String Name) {
         this.Name = Name;
         this.ID = RegisterObject(Name, this);
+        this.anchored = false; // TODO make a physics entity class.
     };
 
     // getter methods
@@ -38,6 +40,10 @@ public class ObjectClass {
         return this.ID;
     };
 
+    public boolean GetAnchored() {
+        return this.anchored;
+    };
+
     // setter methods
 
     public void SetName(String Value) {
@@ -46,6 +52,10 @@ public class ObjectClass {
 
     public void SetID(int Value) {
         this.ID = Value;
+    };
+
+    public void SetAnchored(boolean Value) {
+        this.anchored = Value;
     };
 
     // Override methods

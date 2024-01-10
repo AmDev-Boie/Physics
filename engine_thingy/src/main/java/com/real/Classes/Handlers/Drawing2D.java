@@ -8,6 +8,7 @@ import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
@@ -41,6 +42,26 @@ public class Drawing2D {
         return newImage;
     }
 
+    public static BufferedImage toCompatibleImage(BufferedImage image)
+    {
+        // obtain the current system graphical settings
+        GraphicsConfiguration gfxConfig = GraphicsEnvironment.
+        getLocalGraphicsEnvironment().getDefaultScreenDevice().
+        getDefaultConfiguration();
+
+        if (image.getColorModel().equals(gfxConfig.getColorModel()))
+            return image;
+
+        BufferedImage newImage = gfxConfig.createCompatibleImage(image.getWidth(), image.getHeight(), image.getTransparency());
+
+        Graphics2D g2d = newImage.createGraphics();
+
+        g2d.drawImage(image, 0, 0, null);
+        g2d.dispose();
+
+        return newImage; 
+    }
+
     public static BufferedImage drawFrame (Vector2 CameraPos, double CameraZoom, int width, int height) throws IOException {
 
         BufferedImage resultingFrame = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
@@ -55,9 +76,7 @@ public class Drawing2D {
             if (Element[1] instanceof PhysicalObject2D) {
 
                 Object2D = (PhysicalObject2D) (Array.get(Element, 1));
-                BufferedImage img = ImageIO.read(Object2D.GetTexture());
-
-                img = ImageIO.read(Object2D.GetTexture());
+                BufferedImage img = toCompatibleImage(ImageIO.read(Object2D.GetTexture()));
 
                 int Rotation = (int) ((PhysicalObject2D) Element[1]).GetRotation();
 

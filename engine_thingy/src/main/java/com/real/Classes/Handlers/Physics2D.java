@@ -18,7 +18,8 @@ public class Physics2D {
     
     public static void stepPhysics(double deltatime) {
         for (Object[] Element : ObjectClass.ObjectList) {
-            if ((Element[1] instanceof Particle2D)) {
+            if (((ObjectClass) Element[1]).GetAnchored() == false) {
+                if ((Element[1] instanceof Particle2D)) {
                 particle = (Particle2D) (Array.get(Element, 1));
 
                 // getting the particle properties so i dont gotta call the function every other nanosecond
@@ -34,15 +35,11 @@ public class Physics2D {
                 if (Math.abs(particle.GetVelocity().GetX()) <= Math.abs(terminalVelocity)) {
                     particle.SetVelocity(new Vector2(velocityX, velocity.GetY()));
                 } else {
-                    float tVs;
-
                     if (velocityX <= terminalVelocity) {
-                        tVs = terminalVelocity;
+                        particle.SetVelocity(new Vector2(terminalVelocity, velocity.GetY()));
                     } else {
-                        tVs = -terminalVelocity;
+                        particle.SetVelocity(new Vector2(-terminalVelocity, velocity.GetY()));
                     }
-
-                    particle.SetVelocity(new Vector2(tVs, velocity.GetY()));
                 }
 
                 float velocityY = (float) (velocity.GetY() + ((gravitationalConstant.GetY()/drag)*deltatime));
@@ -50,15 +47,11 @@ public class Physics2D {
                 if (Math.abs(particle.GetVelocity().GetY()) <= Math.abs(terminalVelocity)) {
                     particle.SetVelocity(new Vector2(velocity.GetX(), velocityY));
                 } else {
-                    float tVs;
-
                     if (velocityY <= terminalVelocity) {
-                        tVs = terminalVelocity;
+                        particle.SetVelocity(new Vector2(velocity.GetX(), terminalVelocity));
                     } else {
-                        tVs = -terminalVelocity;
+                        particle.SetVelocity(new Vector2(velocity.GetX(), -terminalVelocity));
                     }
-
-                    particle.SetVelocity(new Vector2(velocity.GetX(), tVs));
                 }
 
                 // Apply velocity to position
@@ -68,58 +61,45 @@ public class Physics2D {
                 System.out.println(particle.GetVelocity());
                 System.out.println(deltatime);
 
-            } else if(Element[1] instanceof PhysicalObject2D) {
+                } else if(Element[1] instanceof PhysicalObject2D) {
+                    object = (PhysicalObject2D) (Array.get(Element, 1));
 
-                object = (PhysicalObject2D) (Array.get(Element, 1));
+                    float mass = object.GetMass();
+                    Vector2 position = object.GetPosition();
+                    Vector2 velocity = object.GetVelocity();
 
-                // getting the particle properties so i dont gotta call the function every other nanosecond
+                    float velocityX = (float) (velocity.GetX() + ((gravitationalConstant.GetX()/drag)*deltatime));
 
-                float mass = object.GetMass();
-                Vector2 position = object.GetPosition();
-                Vector2 velocity = object.GetVelocity();
-
-                // calculate velocity vector2d
-
-                float velocityX = (float) (velocity.GetX() + ((gravitationalConstant.GetX()/drag)/deltatime));
-
-                if (Math.abs(object.GetVelocity().GetX()) <= Math.abs(terminalVelocity)) {
-                    object.SetVelocity(new Vector2(velocityX, velocity.GetY()));
-                } else {
-                    float tVs;
-
-                    if (velocityX <= terminalVelocity) {
-                        tVs = terminalVelocity;
+                    if (Math.abs(object.GetVelocity().GetX()) <= Math.abs(terminalVelocity)) {
+                        object.SetVelocity(new Vector2(velocityX, velocity.GetY()));
                     } else {
-                        tVs = -terminalVelocity;
+                        if (velocityX <= terminalVelocity) {
+                            object.SetVelocity(new Vector2(terminalVelocity, velocity.GetY()));
+                        } else {
+                            object.SetVelocity(new Vector2(-terminalVelocity, velocity.GetY()));
+                        }
                     }
 
-                    object.SetVelocity(new Vector2(tVs, velocity.GetY()));
-                }
+                    float velocityY = (float) (velocity.GetY() + ((gravitationalConstant.GetY()/drag)*deltatime));
 
-                float velocityY = (float) (velocity.GetY() + ((gravitationalConstant.GetY()/drag)/deltatime));
-
-                if (Math.abs(object.GetVelocity().GetY()) <= Math.abs(terminalVelocity)) {
-                    object.SetVelocity(new Vector2(velocity.GetX(), velocityY));
-                } else {
-                    float tVs;
-
-                    if (velocityY <= terminalVelocity) {
-                        tVs = terminalVelocity;
+                    if (Math.abs(object.GetVelocity().GetY()) <= Math.abs(terminalVelocity)) {
+                        object.SetVelocity(new Vector2(velocity.GetX(), velocityY));
                     } else {
-                        tVs = -terminalVelocity;
+                        if (velocityY <= terminalVelocity) {
+                            object.SetVelocity(new Vector2(velocity.GetX(), terminalVelocity));
+                        } else {
+                            object.SetVelocity(new Vector2(velocity.GetX(), -terminalVelocity));
+                        }
                     }
 
-                    object.SetVelocity(new Vector2(velocity.GetX(), tVs));
+                    object.SetPosition(new Vector2((float) (position.GetX() + object.GetVelocity().GetX()*deltatime), (float) (position.GetY() + object.GetVelocity().GetY()*deltatime)));
+
+                    System.out.println("\n" + object.GetPosition());
+                    System.out.println(object.GetVelocity());
+                    System.out.println(deltatime);
                 }
-
-                // Apply velocity to position
-                object.SetPosition(new Vector2((float) (position.GetX() + object.GetVelocity().GetX()*deltatime), (float) (position.GetY() + object.GetVelocity().GetY()*deltatime)));
-
-                System.out.println("\n" + object.GetPosition());
-                System.out.println(object.GetVelocity());
-                System.out.println(deltatime);
-            }
-        }
-    }
+            };
+        };
+    };
 
 }

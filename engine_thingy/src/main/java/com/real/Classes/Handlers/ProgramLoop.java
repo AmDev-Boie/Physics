@@ -20,14 +20,13 @@ import java.util.concurrent.TimeUnit;
 
 public class ProgramLoop {
 
-    // Configs
-
-    static int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
-
     // Constants
 
-    public static final Window window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT);
-    public static final JLabel ImageLabel = window.GetImageLabel();
+    public static Window window;
+    public static JLabel ImageLabel;
+
+    public static int windowWidth;
+    public static int windowHeight;
 
     // delta time stuff
 
@@ -44,6 +43,14 @@ public class ProgramLoop {
     public static double deltaTime = 0;
     private static boolean frameReady = true;
     private static boolean running = true;
+
+    public static void initWindow(int WINDOW_WIDTH, int WINDOW_HEIGHT) {
+        window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT);
+        ImageLabel = window.GetImageLabel();
+        windowWidth = WINDOW_WIDTH;
+        windowHeight = WINDOW_HEIGHT;
+
+    }
 
         public static void run2D() {
 
@@ -70,7 +77,7 @@ public class ProgramLoop {
                 if (deltaF >= 1) {
                     
                     try {
-                    BufferedImage BImage = Drawing2D.drawFrame(CamPos, CamZoom, WINDOW_WIDTH, WINDOW_HEIGHT);
+                    BufferedImage BImage = Drawing2D.drawFrame(CamPos, CamZoom, windowWidth, windowHeight);
                     ImageLabel.setIcon(new ImageIcon(BImage));
                     } catch (IOException e) {
                         e.printStackTrace();

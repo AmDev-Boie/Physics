@@ -16,12 +16,12 @@ public class PhysicalObject2D extends ObjectClass {
     protected float mass;
 
     public PhysicalObject2D() {
-        super("Object");
+        super("Object2D");
 
         this.Position = new Vector2(0,0);
         this.Size = new Vector2(50,50);
         this.Rotation = new EulerRotation(0);
-        this.Texture = new File("/Users/27ayden.dillon/Desktop/Programs/TD_ENGINE/td_engine/src/main/resources/Images/Test.png"); // texture path here
+        this.Texture = new File("/Users/27ayden.dillon/Desktop/Programs/Physics/engine_thingy/src/main/resources/Images/ohno.png"); // texture path here
 
         // Physics
 
