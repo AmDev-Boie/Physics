@@ -13,12 +13,12 @@ public class Main {
 
     // Window Variables
 
-    private static int windowWidth = 1200;
-    private static int windowHeight = 800;
+    private static int windowWidth = 1800;
+    private static int windowHeight = 1100;
 
     // Simulation Variables
 
-    private static int particleCount = 10;
+    private static int particleCount = 1;
 
     public static void main(String[] args) {
         for (int i = 0; i < particleCount; i++) {

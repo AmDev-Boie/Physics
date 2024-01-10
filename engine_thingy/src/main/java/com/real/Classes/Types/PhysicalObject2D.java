@@ -21,7 +21,7 @@ public class PhysicalObject2D extends ObjectClass {
         this.Position = new Vector2(0,0);
         this.Size = new Vector2(50,50);
         this.Rotation = new EulerRotation(0);
-        this.Texture = new File(""); // texture path here
+        this.Texture = new File("./engine_thingy/src/main/resources/Images/ohno.png"); // no more need for manual input :)
 
         // Physics
 
