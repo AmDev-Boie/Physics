@@ -8,4 +8,4 @@ IMPORTANT
 Known issues
 ---
 
--- Physics janky on low performance, i dont know how one does integrals in physics yet :/
+-- physics break down on low UPS, over shooting the distance traveled and being "faster" when laggy.
