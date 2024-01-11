@@ -4,6 +4,8 @@ package com.real.Classes.Handlers;
 
 import com.real.Classes.Types.*;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -13,12 +15,13 @@ import javax.swing.JLabel;
 import com.real.Classes.Handlers.*;
 
 import java.time.*;
+import java.util.Vector;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-public class ProgramLoop {
+public class ProgramLoop implements KeyListener {
 
     // Constants
 
@@ -36,7 +39,7 @@ public class ProgramLoop {
     // Camera Variables
 
     public static Vector2 CamPos = new Vector2(0, 0);
-    public static int CamZoom = 1;
+    public static double CamZoom = 0.5;
 
     // values i might want for actual progress
 
@@ -51,6 +54,72 @@ public class ProgramLoop {
         windowHeight = WINDOW_HEIGHT;
 
     }
+
+    // Input shii
+    // probably more efficient ways to do this, but for now ill do caveman ooga booga primate brain way.
+
+    private static boolean A_HELD = false;
+    private static boolean D_HELD = false;
+    private static boolean W_HELD = false;
+    private static boolean S_HELD = false;
+    
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+        int key = e.getKeyCode();
+    
+        if (key == KeyEvent.VK_A) {
+            A_HELD = true;
+        }
+    
+        if (key == KeyEvent.VK_D) {
+            D_HELD = true;
+        }
+    
+        if (key == KeyEvent.VK_W) {
+            W_HELD = true;
+        }
+    
+        if (key == KeyEvent.VK_S) {
+            S_HELD = true;
+        }
+
+        if (key == KeyEvent.VK_EQUALS) {
+            CamZoom += 0.1;
+        }
+
+        if (key == KeyEvent.VK_MINUS) {
+            CamZoom -= 0.1;
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+    
+        if (key == KeyEvent.VK_A) {
+            A_HELD = false;
+        }
+    
+        if (key == KeyEvent.VK_D) {
+            D_HELD = false;
+        }
+    
+        if (key == KeyEvent.VK_W) {
+            W_HELD = false;
+        }
+    
+        if (key == KeyEvent.VK_S) {
+            S_HELD = false;
+        }
+    }
+
+    // Actually run the thingy
 
         public static void run2D() {
 
@@ -75,10 +144,30 @@ public class ProgramLoop {
                 }
 
                 if (deltaF >= 1) {
-                    
                     try {
-                    BufferedImage BImage = Drawing2D.drawFrame(CamPos, CamZoom, windowWidth, windowHeight);
-                    ImageLabel.setIcon(new ImageIcon(BImage));
+                        // Check Inputs
+
+                        if (A_HELD == true) {
+                            CamPos.SetX((float) (CamPos.GetX() + (-10 * deltaF)));
+                        }
+                    
+                        if (D_HELD == true) {
+                            CamPos.SetX((float) (CamPos.GetX() + 10 * deltaF));
+                        }
+                    
+                        if (W_HELD == true) {
+                            CamPos.SetY((float) (CamPos.GetY() + -10 * deltaF));
+                        }
+                    
+                        if (S_HELD == true) {
+                            CamPos.SetY((float) (CamPos.GetY() + 10 * deltaF));
+                        }
+
+                        // Draw frame
+
+                        BufferedImage BImage = Drawing2D.drawFrame(CamPos, CamZoom, windowWidth, windowHeight);
+                        ImageLabel.setIcon(new ImageIcon(BImage));
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -13,8 +13,8 @@ public class Main {
 
     // Window Variables
 
-    private static int windowWidth = 1800;
-    private static int windowHeight = 1100;
+    private static int windowWidth = 1000;
+    private static int windowHeight = 700;
 
     // Simulation Variables
 
@@ -24,8 +24,11 @@ public class Main {
         for (int i = 0; i < particleCount; i++) {
             PhysicalObject2D object = new PhysicalObject2D();
             object.SetVelocity(new Vector2((float) JMath.RandomBetween(-5, 5), (float) JMath.RandomBetween(0, 10)));
-            // object.SetPosition(new Vector2((float) JMath.RandomBetween(-100, 100), 1000));
+            object.SetPosition(new Vector2(0, 250));
+            object.SetAnchored(true);
         }
+
+        Physics2D.SetSimSpeed((float) (1));
         
         ProgramLoop.initWindow(windowWidth, windowHeight);
         ProgramLoop.run2D();

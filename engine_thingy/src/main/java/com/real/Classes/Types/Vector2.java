@@ -44,7 +44,7 @@ public class Vector2 {
     };
 
     public void SetY(float Value) {
-        this.x = Value;
+        this.y = Value;
     };
 
     // Override

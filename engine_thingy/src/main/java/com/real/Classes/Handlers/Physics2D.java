@@ -7,9 +7,10 @@ public class Physics2D {
 
     // Physics cosntants
 
-    private static Vector2 gravitationalConstant = new Vector2(0, (float) (-9.81));
+    private static Vector2 gravitationalConstant = new Vector2((float) (0), (float) (-9.81));
     private static float drag = 50;
     private static float terminalVelocity = -20;
+    protected static float simSpeed = 1;
 
     // more pre-defines because yet again im incompetent.
 
@@ -30,32 +31,32 @@ public class Physics2D {
 
                 // calculate velocity vector2d
 
-                float velocityX = (float) (velocity.GetX() + ((gravitationalConstant.GetX()/drag)*deltatime));
+                float velocityX = (float) (velocity.GetX() + ((gravitationalConstant.GetX())*deltatime))/drag;
 
                 if (Math.abs(particle.GetVelocity().GetX()) <= Math.abs(terminalVelocity)) {
-                    particle.SetVelocity(new Vector2(velocityX, velocity.GetY()));
+                    particle.SetVelocity(new Vector2(velocityX * simSpeed, velocity.GetY()));
                 } else {
                     if (velocityX <= terminalVelocity) {
-                        particle.SetVelocity(new Vector2(terminalVelocity, velocity.GetY()));
+                        particle.SetVelocity(new Vector2(terminalVelocity * simSpeed, velocity.GetY()));
                     } else {
-                        particle.SetVelocity(new Vector2(-terminalVelocity, velocity.GetY()));
+                        particle.SetVelocity(new Vector2(-terminalVelocity * simSpeed, velocity.GetY()));
                     }
                 }
 
-                float velocityY = (float) (velocity.GetY() + ((gravitationalConstant.GetY()/drag)*deltatime));
+                float velocityY = (float) (velocity.GetY() + ((gravitationalConstant.GetY())*deltatime))/drag;
 
                 if (Math.abs(particle.GetVelocity().GetY()) <= Math.abs(terminalVelocity)) {
-                    particle.SetVelocity(new Vector2(velocity.GetX(), velocityY));
+                    particle.SetVelocity(new Vector2(velocity.GetX(), velocityY * simSpeed));
                 } else {
                     if (velocityY <= terminalVelocity) {
-                        particle.SetVelocity(new Vector2(velocity.GetX(), terminalVelocity));
+                        particle.SetVelocity(new Vector2(velocity.GetX(), terminalVelocity * simSpeed));
                     } else {
-                        particle.SetVelocity(new Vector2(velocity.GetX(), -terminalVelocity));
+                        particle.SetVelocity(new Vector2(velocity.GetX(), -terminalVelocity * simSpeed));
                     }
                 }
 
                 // Apply velocity to position
-                particle.SetPosition(new Vector2((float) (position.GetX() + particle.GetVelocity().GetX()*deltatime), (float) (position.GetY() + particle.GetVelocity().GetY()*deltatime)));
+                particle.SetPosition(new Vector2((float) (position.GetX() + (particle.GetVelocity().GetX()*deltatime*simSpeed)), (float) (position.GetY() + (particle.GetVelocity().GetY()*deltatime*simSpeed))));
 
                 System.out.println("\n" + particle.GetPosition());
                 System.out.println(particle.GetVelocity());
@@ -68,31 +69,31 @@ public class Physics2D {
                     Vector2 position = object.GetPosition();
                     Vector2 velocity = object.GetVelocity();
 
-                    float velocityX = (float) (velocity.GetX() + ((gravitationalConstant.GetX()/drag)*deltatime));
+                    float velocityX = (float) (velocity.GetX() + ((gravitationalConstant.GetX())*deltatime))/drag;
 
                     if (Math.abs(object.GetVelocity().GetX()) <= Math.abs(terminalVelocity)) {
-                        object.SetVelocity(new Vector2(velocityX, velocity.GetY()));
+                        object.SetVelocity(new Vector2(velocityX * simSpeed, velocity.GetY()));
                     } else {
                         if (velocityX <= terminalVelocity) {
-                            object.SetVelocity(new Vector2(terminalVelocity, velocity.GetY()));
+                            object.SetVelocity(new Vector2(terminalVelocity * simSpeed, velocity.GetY()));
                         } else {
-                            object.SetVelocity(new Vector2(-terminalVelocity, velocity.GetY()));
+                            object.SetVelocity(new Vector2(-terminalVelocity * simSpeed, velocity.GetY()));
                         }
                     }
 
-                    float velocityY = (float) (velocity.GetY() + ((gravitationalConstant.GetY()/drag)*deltatime));
+                    float velocityY = (float) (velocity.GetY() + ((gravitationalConstant.GetY())*deltatime))/drag;
 
                     if (Math.abs(object.GetVelocity().GetY()) <= Math.abs(terminalVelocity)) {
-                        object.SetVelocity(new Vector2(velocity.GetX(), velocityY));
+                        object.SetVelocity(new Vector2(velocity.GetX(), velocityY * simSpeed));
                     } else {
                         if (velocityY <= terminalVelocity) {
-                            object.SetVelocity(new Vector2(velocity.GetX(), terminalVelocity));
+                            object.SetVelocity(new Vector2(velocity.GetX(), terminalVelocity*simSpeed));
                         } else {
-                            object.SetVelocity(new Vector2(velocity.GetX(), -terminalVelocity));
+                            object.SetVelocity(new Vector2(velocity.GetX(), -terminalVelocity*simSpeed));
                         }
                     }
 
-                    object.SetPosition(new Vector2((float) (position.GetX() + object.GetVelocity().GetX()*deltatime), (float) (position.GetY() + object.GetVelocity().GetY()*deltatime)));
+                    object.SetPosition(new Vector2((float) (position.GetX() + (object.GetVelocity().GetX()*deltatime*simSpeed)), (float) (position.GetY() + (object.GetVelocity().GetY()*deltatime*simSpeed))));
 
                     System.out.println("\n" + object.GetPosition());
                     System.out.println(object.GetVelocity());
@@ -101,5 +102,17 @@ public class Physics2D {
             };
         };
     };
+
+    // Getter
+
+    public static float GetSimSpeed() {
+        return simSpeed;
+    }
+
+    // Setter
+
+    public static void SetSimSpeed(float Value) {
+        simSpeed = Value;
+    }
 
 }

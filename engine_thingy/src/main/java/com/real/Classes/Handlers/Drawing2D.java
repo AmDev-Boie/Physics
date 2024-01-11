@@ -106,6 +106,13 @@ public class Drawing2D {
 
         }
 
+        // Draw Overlay
+
+        // Crosshair in middle of screen
+
+        frameGraphics.drawRect((width/2)-4, (height/2), 8, 1);
+        frameGraphics.drawRect((width/2), (height/2)-4, 1, 8);
+
         return resultingFrame;
     }
 }

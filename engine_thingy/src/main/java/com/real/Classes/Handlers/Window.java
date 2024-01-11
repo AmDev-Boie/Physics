@@ -27,6 +27,7 @@ public class Window {
         this.JavaFrame.getContentPane().setLayout(new FlowLayout());
         this.JavaFrame.setResizable(false);
         this.JavaFrame.setPreferredSize(new java.awt.Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+        this.JavaFrame.addKeyListener(new ProgramLoop());
 
         // Image Label
 
