@@ -28,10 +28,12 @@ public class Window {
         this.JavaFrame.setResizable(false);
         this.JavaFrame.setPreferredSize(new java.awt.Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         this.JavaFrame.addKeyListener(new ProgramLoop());
+        this.JavaFrame.setLayout(null);
 
         // Image Label
 
         this.ImageLabel = new JLabel();
+        this.ImageLabel.setBounds(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
         this.JavaFrame.getContentPane().add(ImageLabel);
         this.JavaFrame.pack();
 

@@ -1,5 +1,7 @@
 package com.real.Classes.Types;
 
+import com.real.Classes.PrimativeAdditions.JMath;
+
 public class Vector2 {
     // Final Variables
 
@@ -7,28 +9,28 @@ public class Vector2 {
 
     // Object Variables
 
-    protected float x,y;
+    protected double x,y;
 
     // Constructor
 
-    public Vector2(float x, float y) {
+    public Vector2(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
     // Getter
 
-    public float GetX() {
+    public double GetX() {
         return this.x;
     };
 
-    public float GetY() {
+    public double GetY() {
         return this.y;
     };
 
-    public float GetMagnitude() {
-        float absMagnitude = (float) Math.abs(Math.pow(x, 2) - Math.pow(y, 2));
-        float magnitude = (float) Math.abs(Math.pow(x, 2) - Math.pow(y, 2));
+    public double GetMagnitude() {
+        double absMagnitude = Math.abs(Math.pow(x, 2) - Math.pow(y, 2));
+        double magnitude = (Math.pow(x, 2) - Math.pow(y, 2));
 
         if (absMagnitude == magnitude) {
             return magnitude;
@@ -39,19 +41,22 @@ public class Vector2 {
 
     // Setter
 
-    public void SetX(float Value) {
+    public void SetX(double Value) {
         this.x = Value;
     };
 
-    public void SetY(float Value) {
+    public void SetY(double Value) {
         this.y = Value;
     };
 
     // Override
 
     @Override
-
     public String toString() {
         return this.x + ", " + this.y;
+    };
+
+    public Vector2 RoundToDecimal(int decimalPrecision) {
+        return new Vector2(JMath.RoundToDecimal(this.x, decimalPrecision), JMath.RoundToDecimal(this.y, decimalPrecision));
     };
 }

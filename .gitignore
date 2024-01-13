@@ -1,3 +1,11 @@
 /.vscode
 /checkcode.png
 /target
+engine_thingy/target/classes/com/real/Main.class
+engine_thingy/target/classes/com/real/Classes/Handlers/Drawing2D.class
+engine_thingy/target/classes/com/real/Classes/Handlers/Physics2D.class
+engine_thingy/target/classes/com/real/Classes/Handlers/ProgramLoop.class
+engine_thingy/target/classes/com/real/Classes/Types/ObjectClass.class
+engine_thingy/target/classes/com/real/Classes/Types/Particle2D.class
+engine_thingy/target/classes/com/real/Classes/Types/PhysicalObject2D.class
+engine_thingy/target/classes/com/real/Classes/Types/Vector2.class

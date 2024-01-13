@@ -23,11 +23,13 @@ public class ObjectClass {
     protected String Name;
     protected int ID;
     protected boolean anchored;
+    protected boolean canCollide;
 
     public ObjectClass(String Name) {
         this.Name = Name;
         this.ID = RegisterObject(Name, this);
         this.anchored = false; // TODO make a physics entity class.
+        this.canCollide = true;
     };
 
     // getter methods
@@ -44,6 +46,10 @@ public class ObjectClass {
         return this.anchored;
     };
 
+    public boolean GetCanCollide() {
+        return this.canCollide;
+    };
+
     // setter methods
 
     public void SetName(String Value) {
@@ -56,6 +62,10 @@ public class ObjectClass {
 
     public void SetAnchored(boolean Value) {
         this.anchored = Value;
+    };
+
+    public void SetCanCollide(boolean Value) {
+        this.canCollide = Value;
     };
 
     // Override methods

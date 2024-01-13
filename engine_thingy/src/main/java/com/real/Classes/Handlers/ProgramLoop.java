@@ -4,12 +4,16 @@ package com.real.Classes.Handlers;
 
 import com.real.Classes.Types.*;
 
+import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import com.real.Classes.Handlers.*;
@@ -26,6 +30,7 @@ public class ProgramLoop implements KeyListener {
     // Constants
 
     public static Window window;
+    public static JFrame windowJFrame;
     public static JLabel ImageLabel;
 
     public static int windowWidth;
@@ -40,6 +45,8 @@ public class ProgramLoop implements KeyListener {
 
     public static Vector2 CamPos = new Vector2(0, 0);
     public static double CamZoom = 0.5;
+    public static double panSpeed = 1;
+    public static double speedIncrement = 0.1;
 
     // values i might want for actual progress
 
@@ -52,7 +59,7 @@ public class ProgramLoop implements KeyListener {
         ImageLabel = window.GetImageLabel();
         windowWidth = WINDOW_WIDTH;
         windowHeight = WINDOW_HEIGHT;
-
+        windowJFrame = window.GetJFrame();
     }
 
     // Input shii
@@ -84,12 +91,45 @@ public class ProgramLoop implements KeyListener {
             S_HELD = true;
         }
 
+        if (key == KeyEvent.VK_SHIFT) {
+            panSpeed = 10;
+            speedIncrement = 0.25;
+        }
+
         if (key == KeyEvent.VK_EQUALS) {
-            CamZoom += 0.1;
+            CamZoom += 0.25;
         }
 
         if (key == KeyEvent.VK_MINUS) {
-            CamZoom -= 0.1;
+            double newSpeed = CamZoom -0.25;
+
+            if(newSpeed > 0) {
+                CamZoom = newSpeed;
+            }
+        }
+
+        if (key == KeyEvent.VK_OPEN_BRACKET) {
+            double newSpeed = Physics2D.GetSimSpeed() - speedIncrement;
+
+            if(newSpeed >= 0) {
+                Physics2D.SetSimSpeed(newSpeed);
+            } else {
+                Physics2D.SetSimSpeed(0);
+            }
+        }
+
+        if (key == KeyEvent.VK_CLOSE_BRACKET) {
+            double newSpeed = Physics2D.GetSimSpeed() + speedIncrement;
+
+            Physics2D.SetSimSpeed(newSpeed);
+        }
+
+        if (key == KeyEvent.VK_1) {
+            Drawing2D.SetDebugOverlayStatus(!Drawing2D.GetDebugOverlayStatus());
+        }
+
+        if (key == KeyEvent.VK_0) {
+            Drawing2D.SetControlOverlayStatus(!Drawing2D.GetControlOverlayStatus());
         }
     }
 
@@ -117,6 +157,11 @@ public class ProgramLoop implements KeyListener {
         if (key == KeyEvent.VK_S) {
             S_HELD = false;
         }
+
+        if (key == KeyEvent.VK_SHIFT) {
+            panSpeed = 1;
+            speedIncrement = 0.1;
+        }
     }
 
     // Actually run the thingy
@@ -135,6 +180,7 @@ public class ProgramLoop implements KeyListener {
                 long currentTime = System.nanoTime();
                 deltaU += (currentTime - initialTime) / timeU;
                 deltaF += (currentTime - initialTime) / timeF;
+
                 initialTime = currentTime;
 
                 if (deltaU >= 1) {
@@ -148,19 +194,19 @@ public class ProgramLoop implements KeyListener {
                         // Check Inputs
 
                         if (A_HELD == true) {
-                            CamPos.SetX((float) (CamPos.GetX() + (-10 * deltaF)));
+                            CamPos.SetX((float) (CamPos.GetX() + (-panSpeed / deltaF)));
                         }
                     
                         if (D_HELD == true) {
-                            CamPos.SetX((float) (CamPos.GetX() + 10 * deltaF));
+                            CamPos.SetX((float) (CamPos.GetX() + panSpeed / deltaF));
                         }
                     
                         if (W_HELD == true) {
-                            CamPos.SetY((float) (CamPos.GetY() + -10 * deltaF));
+                            CamPos.SetY((float) (CamPos.GetY() + -panSpeed / deltaF));
                         }
                     
                         if (S_HELD == true) {
-                            CamPos.SetY((float) (CamPos.GetY() + 10 * deltaF));
+                            CamPos.SetY((float) (CamPos.GetY() + panSpeed / deltaF));
                         }
 
                         // Draw frame
