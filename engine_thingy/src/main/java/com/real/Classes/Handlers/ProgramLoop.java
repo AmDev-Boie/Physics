@@ -180,13 +180,15 @@ public class ProgramLoop implements KeyListener {
                 long currentTime = System.nanoTime();
                 deltaU += (currentTime - initialTime) / timeU;
                 deltaF += (currentTime - initialTime) / timeF;
-
                 initialTime = currentTime;
 
                 if (deltaU >= 1) {
                     Physics2D.stepPhysics(deltaU);
+
+                    System.out.println(deltaU);
+
                     ticks++;
-                    deltaU--;
+                    deltaU -= deltaU;
                 }
 
                 if (deltaF >= 1) {
@@ -194,19 +196,19 @@ public class ProgramLoop implements KeyListener {
                         // Check Inputs
 
                         if (A_HELD == true) {
-                            CamPos.SetX((float) (CamPos.GetX() + (-panSpeed / deltaF)));
+                            CamPos.SetX((float) (CamPos.GetX() + (-panSpeed * deltaF)));
                         }
                     
                         if (D_HELD == true) {
-                            CamPos.SetX((float) (CamPos.GetX() + panSpeed / deltaF));
+                            CamPos.SetX((float) (CamPos.GetX() + panSpeed * deltaF));
                         }
                     
                         if (W_HELD == true) {
-                            CamPos.SetY((float) (CamPos.GetY() + -panSpeed / deltaF));
+                            CamPos.SetY((float) (CamPos.GetY() + -panSpeed * deltaF));
                         }
                     
                         if (S_HELD == true) {
-                            CamPos.SetY((float) (CamPos.GetY() + panSpeed / deltaF));
+                            CamPos.SetY((float) (CamPos.GetY() + panSpeed * deltaF));
                         }
 
                         // Draw frame
@@ -214,11 +216,13 @@ public class ProgramLoop implements KeyListener {
                         BufferedImage BImage = Drawing2D.drawFrame(CamPos, CamZoom, windowWidth, windowHeight);
                         ImageLabel.setIcon(new ImageIcon(BImage));
 
+                        System.out.println("\n" + deltaF);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     frames++;
-                    deltaF--;
+                    deltaF -= deltaF;
                 }
 
                 if (System.currentTimeMillis() - timer > 1000) {
