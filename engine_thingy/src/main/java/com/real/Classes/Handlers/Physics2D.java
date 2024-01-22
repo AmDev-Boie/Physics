@@ -2,6 +2,7 @@ package com.real.Classes.Handlers;
 
 import java.lang.reflect.Array;
 
+import com.real.Classes.PrimativeAdditions.JGeometry;
 import com.real.Classes.Types.*;
 public class Physics2D {
 
@@ -19,7 +20,7 @@ public class Physics2D {
     
     public static void stepPhysics(double deltatime) {
         for (Object[] Element : ObjectClass.ObjectList) {
-            if (((ObjectClass) Element[1]).GetAnchored() == false) {
+            if (((PhysicsEntity) Element[1]).GetAnchored() == false) {
                 if ((Element[1] instanceof Particle2D)) {
                     particle = (Particle2D) (Array.get(Element, 1));
 
@@ -81,6 +82,20 @@ public class Physics2D {
                             object.SetVelocity(new Vector2(velocity.GetX(), terminalVelocity));
                         } else {
                             object.SetVelocity(new Vector2(velocity.GetX(), -terminalVelocity));
+                        }
+                    }
+
+                    for (Object[] Element2 : ObjectClass.ObjectList) {
+                        if (Element2[1] instanceof PhysicalObject2D) {
+                            PhysicalObject2D object2 = (PhysicalObject2D) (Array.get(Element, 1));
+
+                            if (object.GetCanCollide()) {
+                                if (JGeometry.IsObjectInsideObject(object, object2)) {
+                                    System.out.println("Collision Detected");
+                                } else {
+                                    System.out.println("Collision NOT Detected");
+                                }
+                            }
                         }
                     }
 

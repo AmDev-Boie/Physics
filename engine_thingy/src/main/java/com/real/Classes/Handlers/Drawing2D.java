@@ -155,6 +155,11 @@ public class Drawing2D {
                 if(((mousePoint.getX() >= (offsetX) & mousePoint.getX() <= (offsetX + (ImgWidth))) &
                 (mousePoint.getY() >= (offsetY) & mousePoint.getY() <= (offsetY + (ImgHeight)))) &
                 debugOverlay) {
+                    frameGraphics.setColor(new Color(0,255,0,255));
+                    frameGraphics.setStroke(new BasicStroke((float) (4*CameraZoom)));
+                    frameGraphics.drawLine(offsetX + (ImgWidth/2), offsetY + (ImgHeight/2), (int) ((VelocityoffsetX + (ImgWidth/2))), (int) ((VelocityoffsetY + (ImgHeight/2))));
+                    frameGraphics.setStroke(new BasicStroke(1));
+
                     frameGraphics.setColor(new Color(0,0,0,100));
 
                     int hoverMenuOffsetX = (int) mousePoint.getX() + 10;
@@ -176,36 +181,35 @@ public class Drawing2D {
                     frameGraphics.drawString("Rotation: " + Object2D.GetRotation(), hoverMenuOffsetX + 5, hoverMenuOffsetY + 110);
                     frameGraphics.drawString("Mass: " + Object2D.GetMass(), hoverMenuOffsetX + 5, hoverMenuOffsetY + 130);
                     
-                    frameGraphics.setColor(new Color(0,255,0,255));
-                    frameGraphics.setStroke(new BasicStroke((float) (4*CameraZoom)));
-                    frameGraphics.drawLine(offsetX + (ImgWidth/2), offsetY + (ImgHeight/2), (int) ((VelocityoffsetX + (ImgWidth/2))), (int) ((VelocityoffsetY + (ImgHeight/2))));
-                    frameGraphics.setStroke(new BasicStroke(1));
                     drewInfosheet = true;
                 }
             }
         }
 
         // Draw Overlay
-        
+
+        frameGraphics.setColor(new Color(0,0,0,100));
+        frameGraphics.fillRect(0, 0, width, 30);
         frameGraphics.setColor(new Color(255,255,255,255));
         frameGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 15));
         frameGraphics.drawString("[1: Debug Menu] [2: nothing] [3: nothing] [4: nothing] [5: nothing] [6: nothing] [7: nothing] [8: nothing] [9: nothing] [0: Controls]", 10, 15);
 
         int overlaysOpened = 0;
+        int overlayOffsetY = 100;
 
         if(controlOverlay) {
             frameGraphics.setColor(new Color(0,0,0,100));
 
-            frameGraphics.fillRect(0, 30, 250, 200);
+            frameGraphics.fillRect(0, 30 + overlayOffsetY, 250, 200);
 
             frameGraphics.setColor(new Color(255,255,255,255));
 
             frameGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 13));
-            frameGraphics.drawString("-- Controls --", 10, 50);
+            frameGraphics.drawString("-- Controls --", 10, 50 + overlayOffsetY);
             frameGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 10));
-            frameGraphics.drawString("Pan camera: W A S D", 5, 70);
-            frameGraphics.drawString("Zoom camera: - =", 5, 90);
-            frameGraphics.drawString("Change Simulation Speed: [ ]", 5, 110);
+            frameGraphics.drawString("Pan camera: W A S D", 5, 70 + overlayOffsetY);
+            frameGraphics.drawString("Zoom camera: - =", 5, 90 + overlayOffsetY);
+            frameGraphics.drawString("Change Simulation Speed: [ ]", 5, 110 + overlayOffsetY);
 
             overlaysOpened++;
         }
@@ -214,18 +218,20 @@ public class Drawing2D {
 
             frameGraphics.setColor(new Color(0,0,0,100));
 
-            frameGraphics.fillRect(0, (230*overlaysOpened) + 30, 250, 200);
+            frameGraphics.fillRect(0, ((230*overlaysOpened) + overlayOffsetY) + 30, 250, 200);
 
             frameGraphics.setColor(new Color(255,255,255,255));
 
             frameGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 13));
-            frameGraphics.drawString("-- Graphics --", 10, 50 + ((230*overlaysOpened)));
+            frameGraphics.drawString("-- Graphics --", 10, 50 + ((230*overlaysOpened) + overlayOffsetY));
             frameGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 10));
-            frameGraphics.drawString("CamPos: " + Math.floor(CameraPos.GetX()) + ", " + Math.floor(CameraPos.GetY()), 15, 70 + (230*overlaysOpened));
-            frameGraphics.drawString("CamZoom: " + Math.floor(CameraZoom*100)/100, 15, 90 + (230*overlaysOpened));
+            frameGraphics.drawString("CamPos: " + Math.floor(CameraPos.GetX()) + ", " + Math.floor(CameraPos.GetY()), 15, 70 + ((230*overlaysOpened) + overlayOffsetY));
+            frameGraphics.drawString("CamZoom: " + Math.floor(CameraZoom*100)/100, 15, 90 + ((230*overlaysOpened) + overlayOffsetY));
 
-            frameGraphics.drawString("-- Physics --", 10, 140 + (230*overlaysOpened));
-            frameGraphics.drawString("SimSpeed: " + Math.floor(Physics2D.simSpeed*100)/100, 15, 160 + (230*overlaysOpened));
+            frameGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 13));
+            frameGraphics.drawString("-- Physics --", 10, 140 + ((230*overlaysOpened) + overlayOffsetY));
+            frameGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 10));
+            frameGraphics.drawString("SimSpeed: " + Math.floor(Physics2D.simSpeed*100)/100, 15, 160 + ((230*overlaysOpened) + overlayOffsetY));
 
             overlaysOpened++;
         }

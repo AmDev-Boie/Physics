@@ -185,8 +185,6 @@ public class ProgramLoop implements KeyListener {
                 if (deltaU >= 1) {
                     Physics2D.stepPhysics(deltaU);
 
-                    System.out.println(deltaU);
-
                     ticks++;
                     deltaU -= deltaU;
                 }
@@ -215,8 +213,6 @@ public class ProgramLoop implements KeyListener {
 
                         BufferedImage BImage = Drawing2D.drawFrame(CamPos, CamZoom, windowWidth, windowHeight);
                         ImageLabel.setIcon(new ImageIcon(BImage));
-
-                        System.out.println("\n" + deltaF);
 
                     } catch (IOException e) {
                         e.printStackTrace();

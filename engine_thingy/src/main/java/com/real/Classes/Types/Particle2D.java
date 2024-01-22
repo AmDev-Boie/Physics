@@ -2,7 +2,7 @@ package com.real.Classes.Types;
 
 import java.awt.Color;
 
-public class Particle2D extends ObjectClass {
+public class Particle2D extends PhysicsEntity {
 
     protected Vector2 Position;
     protected Color Color;

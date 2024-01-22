@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.real.Classes.Handlers.*;
 import com.real.Classes.PrimativeAdditions.*;
+import com.real.Classes.ThreadClasses.ProgramClock;
 
 public class Main{
 
@@ -18,32 +19,35 @@ public class Main{
 
     // Simulation Variables
 
-    private static int particleCount = 1;
+    private static int particleCount = 10;
 
-    // Override Drawing2D's UI method to add some UI
-    // REQUIRED
+    public static void main(String[] args) throws InterruptedException {
 
-    public static void main(String[] args) {
+        // initialize program
+
+        
 
         // Gravity Test
+
+        /*
 
         for (int i = 0; i < particleCount; i++) {
             PhysicalObject2D object = new PhysicalObject2D();
             object.SetVelocity(new Vector2((float) JMath.RandomBetween(-5, 5), (float) JMath.RandomBetween(0, 10)));
             object.SetPosition(new Vector2(0, 20));
         }
+        */
 
         // Collision Test
-        /*
+        
         PhysicalObject2D anchoredObject = new PhysicalObject2D();
         anchoredObject.SetAnchored(true);
 
         PhysicalObject2D collisionObject = new PhysicalObject2D();
-        collisionObject.SetPosition(new Vector2(0, 200));
-        */
-        Physics2D.SetSimSpeed((float) (0));
+        collisionObject.SetPosition(new Vector2(0, 20));
         
-        ProgramLoop.initWindow(windowWidth, windowHeight);
-        ProgramLoop.run2D();
+
+        ProgramClock.initializeThread(windowWidth, windowHeight);
+        ProgramClock.run();
     }
 }

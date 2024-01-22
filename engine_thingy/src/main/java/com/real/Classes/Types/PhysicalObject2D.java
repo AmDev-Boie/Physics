@@ -2,7 +2,7 @@ package com.real.Classes.Types;
 
 import java.io.*;
 
-public class PhysicalObject2D extends ObjectClass {
+public class PhysicalObject2D extends PhysicsEntity {
 
     protected Vector2 Position;
     protected Vector2 Size;
