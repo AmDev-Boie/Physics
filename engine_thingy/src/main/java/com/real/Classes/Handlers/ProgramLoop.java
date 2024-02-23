@@ -55,7 +55,7 @@ public class ProgramLoop implements KeyListener {
     private static boolean running = true;
 
     public static void initWindow(int WINDOW_WIDTH, int WINDOW_HEIGHT) {
-        window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT);
+        window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT, "Java Game");
         ImageLabel = window.GetImageLabel();
         windowWidth = WINDOW_WIDTH;
         windowHeight = WINDOW_HEIGHT;

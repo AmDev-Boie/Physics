@@ -6,6 +6,7 @@ public class PhysicsEntity extends ObjectClass {
 
     protected boolean anchored;
     protected boolean canCollide;
+    protected float bounciness;
 
     // Constructor
 
@@ -14,6 +15,7 @@ public class PhysicsEntity extends ObjectClass {
 
         this.anchored = false;
         this.canCollide = true;
+        this.bounciness = 0.9f;
     };
 
     // Getters
@@ -26,6 +28,10 @@ public class PhysicsEntity extends ObjectClass {
         return this.canCollide;
     };
 
+    public float GetBounciness() {
+        return this.bounciness;
+    };
+
     // Setters
 
     public void SetAnchored(boolean Value) {
@@ -34,6 +40,10 @@ public class PhysicsEntity extends ObjectClass {
 
     public void SetCanCollide(boolean Value) {
         this.canCollide = Value;
+    };
+
+    public void SetBounciness(float Value) {
+        this.bounciness = Value;
     };
     
 }

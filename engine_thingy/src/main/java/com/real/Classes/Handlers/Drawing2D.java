@@ -7,6 +7,8 @@ import java.awt.geom.*;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
 import java.lang.reflect.Array;
 import java.util.Vector;
 
@@ -21,6 +23,10 @@ public class Drawing2D {
 
     private static PhysicalObject2D Object2D;
     private static Particle2D particle;
+
+    // for reading performance stats
+
+    public static OperatingSystemMXBean SystemBean = ManagementFactory.getOperatingSystemMXBean();
 
     // Image Draw stuff
 
@@ -105,8 +111,8 @@ public class Drawing2D {
                     img = RotateImage(img, Rotation);
                 }
 
-                int ImgWidth = (int) (Object2D.GetSize().GetX() * CameraZoom);
-                int ImgHeight = (int) (Object2D.GetSize().GetY() * CameraZoom);
+                int ImgWidth = (int) (Object2D.GetSize().GetX() * CameraZoom * 10);
+                int ImgHeight = (int) (Object2D.GetSize().GetY() * CameraZoom * 10);
 
                 int offsetX = (int) -(((CameraPos.GetX()*10)+(Object2D.GetPosition().GetX()*10))*CameraZoom) + (width/2) - (ImgWidth/2);
                 int offsetY = (int) -(((CameraPos.GetY()*10)+(Object2D.GetPosition().GetY()*10))*CameraZoom) + (height/2) - (ImgHeight/2);
@@ -141,8 +147,8 @@ public class Drawing2D {
 
                 Point mousePoint = GetMousePoint();
 
-                int ImgWidth = (int) (Object2D.GetSize().GetX() * CameraZoom);
-                int ImgHeight = (int) (Object2D.GetSize().GetY() * CameraZoom);
+                int ImgWidth = (int) (Object2D.GetSize().GetX() * CameraZoom * 10);
+                int ImgHeight = (int) (Object2D.GetSize().GetY() * CameraZoom * 10);
 
                 int offsetX = (int) -(((CameraPos.GetX()*10)+(Object2D.GetPosition().GetX()*10))*CameraZoom) + (width/2) - (ImgWidth/2);
                 int offsetY = (int) -(((CameraPos.GetY()*10)+(Object2D.GetPosition().GetY()*10))*CameraZoom) + (height/2) - (ImgHeight/2);
@@ -216,6 +222,9 @@ public class Drawing2D {
 
         if(debugOverlay) {
 
+            double memoryUsed = SystemBean.getSystemLoadAverage();
+            // long memoryAvaliable = SystemBean.getCommittedVirtualMemorySize();
+
             frameGraphics.setColor(new Color(0,0,0,100));
 
             frameGraphics.fillRect(0, ((230*overlaysOpened) + overlayOffsetY) + 30, 250, 200);
@@ -232,6 +241,11 @@ public class Drawing2D {
             frameGraphics.drawString("-- Physics --", 10, 140 + ((230*overlaysOpened) + overlayOffsetY));
             frameGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 10));
             frameGraphics.drawString("SimSpeed: " + Math.floor(Physics2D.simSpeed*100)/100, 15, 160 + ((230*overlaysOpened) + overlayOffsetY));
+
+            frameGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 13));
+            frameGraphics.drawString("-- Performance --", 10, 180 + ((230*overlaysOpened) + overlayOffsetY));
+            frameGraphics.setFont(new Font("TimesRoman", Font.PLAIN, 10));
+            frameGraphics.drawString("Memory: " + Math.round(memoryUsed) + " | " + Runtime.getRuntime().totalMemory()/1000000, 15, 200 + ((230*overlaysOpened) + overlayOffsetY));
 
             overlaysOpened++;
         }

@@ -45,6 +45,7 @@ public class Main{
 
         PhysicalObject2D collisionObject = new PhysicalObject2D();
         collisionObject.SetPosition(new Vector2(0, 20));
+        collisionObject.SetVelocity(new Vector2(1, 0));
         
 
         ProgramClock.initializeThread(windowWidth, windowHeight);

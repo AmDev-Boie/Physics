@@ -33,9 +33,9 @@ public class Vector2 {
         double magnitude = (Math.pow(x, 2) - Math.pow(y, 2));
 
         if (absMagnitude == magnitude) {
-            return magnitude;
+            return Math.sqrt(absMagnitude);
         } else {
-            return -absMagnitude;
+            return -Math.sqrt(absMagnitude);
         }
     };
 

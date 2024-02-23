@@ -14,13 +14,13 @@ public class Window {
     protected JFrame JavaFrame;
     protected JLabel ImageLabel;
 
-    public Window(int WINDOW_WIDTH, int WINDOW_HEIGHT) {
+    public Window(int WINDOW_WIDTH, int WINDOW_HEIGHT, String title) {
 
         // Window
 
         this.JavaFrame = new JFrame();
 
-        this.JavaFrame.setTitle("Java Application");
+        this.JavaFrame.setTitle(title);
         this.JavaFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.JavaFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.JavaFrame.setLocationRelativeTo(null);

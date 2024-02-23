@@ -14,7 +14,7 @@ public class ProgramClock{
     }
 
     public static void run() {
-        Physics2D.SetSimSpeed((float) (0));
+        Physics2D.SetSimSpeed(0f);
         
         ProgramLoop.initWindow(windowWidth, windowHeight);
         ProgramLoop.run2D();

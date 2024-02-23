@@ -3,14 +3,18 @@ package com.real.Classes.Handlers;
 import java.lang.reflect.Array;
 
 import com.real.Classes.PrimativeAdditions.JGeometry;
+import com.real.Classes.PrimativeAdditions.JMath;
 import com.real.Classes.Types.*;
+
+import java.awt.Rectangle;
+
 public class Physics2D {
 
     // Physics cosntants
 
     private static Vector2 gravitationalConstant = new Vector2((float) (0), (float) (-9.81));
     private static double drag = 50;
-    private static double terminalVelocity = -80;
+    private static double terminalVelocity = -100;
     protected static double simSpeed = 1;
 
     // more pre-defines because yet again im incompetent.
@@ -87,19 +91,26 @@ public class Physics2D {
 
                     for (Object[] Element2 : ObjectClass.ObjectList) {
                         if (Element2[1] instanceof PhysicalObject2D) {
-                            PhysicalObject2D object2 = (PhysicalObject2D) (Array.get(Element, 1));
+                            PhysicalObject2D object2 = (PhysicalObject2D) (Array.get(Element2, 1));
+                            if(object2 == object) {continue;} // makes sure the object isnt comparing to itself
 
                             if (object.GetCanCollide()) {
+                                object.SetPosition(new Vector2((position.GetX() + (((object.GetVelocity().GetX()*deltatime)*simSpeed))/5), (position.GetY() + (((object.GetVelocity().GetY()*deltatime)*simSpeed)/5))));
                                 if (JGeometry.IsObjectInsideObject(object, object2)) {
-                                    System.out.println("Collision Detected");
+
+                                    float angle = (float) Math.atan(velocityY/velocityX);
+                                    float angleMagnitude = (float) object.GetVelocity().GetMagnitude();
+
+                                    object.SetPosition(new Vector2((position.GetX() - (((object.GetVelocity().GetX()*deltatime)*simSpeed))/10), (position.GetY() - (((object.GetVelocity().GetY()*deltatime)*simSpeed)/10))));
+                                    object.SetVelocity(JMath.toVector(-angle, angleMagnitude * object.GetBounciness()));
+
+                                    System.out.println("Bounce!");
                                 } else {
-                                    System.out.println("Collision NOT Detected");
+                                    object.SetPosition(new Vector2((position.GetX() + (((object.GetVelocity().GetX()*deltatime)*simSpeed))/10), (position.GetY() + (((object.GetVelocity().GetY()*deltatime)*simSpeed)/10))));
                                 }
                             }
                         }
                     }
-
-                    object.SetPosition(new Vector2((position.GetX() + (((object.GetVelocity().GetX()*deltatime)*simSpeed))/10), (position.GetY() + (((object.GetVelocity().GetY()*deltatime)*simSpeed)/10))));
                 }
             };
         };
