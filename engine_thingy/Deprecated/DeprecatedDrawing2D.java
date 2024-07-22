@@ -85,7 +85,7 @@ public class DeprecatedDrawing2D {
 
             System.out.println(Element[1].getClass().getSimpleName());
 
-            BufferedImage img = ImageIO.read(new File("/Users/27ayden.dillon/Desktop/Programs/TD_ENGINE/td_engine/src/main/resources/Images/Test.png"));
+            BufferedImage img = ImageIO.read(new File(" [File Name Here] "));
 
             if (Element[1] instanceof PhysicalObject2D) {
                 
